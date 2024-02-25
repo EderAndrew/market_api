@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
-import { getAuth } from 'firebase/auth'
+import { getAuth, updateProfile } from 'firebase/auth'
 import 'dotenv/config'
 
 const {
@@ -31,6 +31,7 @@ export {
     db,
     auth,
     collection,
-    getDocs
+    getDocs,
+    updateProfile
 }
 

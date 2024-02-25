@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "../firebase/config"
 
 const UserServices = {
@@ -10,9 +10,10 @@ const UserServices = {
             console.log(err)
         }
     },
-    createUser: async (email: string, password: string) => {
+    createUser: async (email: string, password: string, name: string) => {
         try {
             const user = await createUserWithEmailAndPassword(auth, email, password)
+            await updateProfile(auth.currentUser as User, {displayName: name})
             return user.user
         } catch (err) {
             console.log(err)
