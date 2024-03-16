@@ -4,4 +4,5 @@ export interface IProduct{
     price:number
     brand:string
     qtd:number
+    totalPrice:number
 }

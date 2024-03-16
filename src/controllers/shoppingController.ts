@@ -4,13 +4,35 @@ import { IShopping } from "../interfaces/shopping"
 
 const ShoppingController = {
     createShopping: async(req: Request, res: Response) => {
-        const shop:IShopping = req.body.shop
+        const shop:IShopping = req.body
         try{
-            const data = await ShoopingServices.createShopping(shop)
+            await ShoopingServices.createShopping(shop) as IShopping
 
-            return res.status(200).json(data)
+            return res.status(200).json({msg: "Nova compra inserida com sucesso."})
         }catch(err){
             return res.status(500).json(err)
+        }
+    },
+    getShopping: async(req: Request, res: Response) => {
+        const id = req.params.id
+        try{
+            const shopCol = await ShoopingServices.getShopping(id)
+
+            return res.status(200).json(shopCol)
+        }catch(err){
+            console.log(err)
+        }
+    },
+
+    updateListShopping: async(req: Request, res: Response) => {
+        const id = req.params.id
+        const data = req.body
+        try{
+            const shopCol = await ShoopingServices.updateListShopping(id, data)
+
+            return res.status(200).json(shopCol.data())
+        }catch(err){
+            console.log(err)
         }
     }
 }
