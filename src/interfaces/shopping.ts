@@ -1,7 +1,7 @@
 import { IProduct } from "./product";
 
 export interface IShopping{
-    id:string,
+    id?:string,
     userId:string,
     userName:string,
     marketId:string,
@@ -9,6 +9,6 @@ export interface IShopping{
     day:number,
     month:string,
     year:number,
-    list:[IProduct],
-    total:number
+    list?:[IProduct],
+    total?:number
 }
