@@ -19,6 +19,8 @@ router.get('/list', ListController.products)
 
 router.post('/shopping', ShoppingController.createShopping)
 router.get('/shopping/:id', ShoppingController.getShopping)
-router.put('/shopping/:id', ShoppingController.updateListShopping)
+router.post('/shopping/:id/list', ShoppingController.createShoppingList)
+router.get('/shopping/:id/list', ShoppingController.getShoppingList)
+router.get('/shopping/:id/list/:itemId', ShoppingController.getShoppingItem)
 
 export default router

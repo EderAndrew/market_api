@@ -39,18 +39,56 @@ const ShoppingServices = {
         }
     },
 
-    updateListShopping: async(id: string, data:IProduct) => {
-        const listRef = doc(db, 'shopping', id)
+    createListShopping: async(id: string, data: IProduct) => {
+        try{
+            const listRef = collection(db, 'shopping', `${id}`, 'list')
+            const total = data.price * data.qtd
+            const newList = await setDoc(doc(listRef), {
+                brand: data.brand,
+                name: data.name,
+                price: data.price,
+                qtd: data.qtd,
+                totalPrice: total
+            })
+
+            const shoppingRef = doc(db, 'shopping', id)
         
-        await updateDoc(listRef, {
-            list: arrayUnion(data),
-            total: increment(data.totalPrice)
-        })
+            await updateDoc(shoppingRef, {
+                total: increment(total)
+            })
 
-        const listSnap = await getDoc(listRef)
+            return newList
+        }catch(err: any){
+            console.log(err)
+        }
+    },
+    getShoppingList: async(id: string) => {
+        try{
+            const listItem:IProduct[] = []
+            const listRef = collection(db, 'shopping', `${id}`, 'list')
+            const listSnapshot = await getDocs(listRef)
 
-        return listSnap
+            listSnapshot.docs.map((doc) => {
+                listItem.push({id: doc.id, ...doc.data() as IProduct})
+            })
+
+            return listItem
+        }catch(err:any){
+            console.log(err)
+        } 
+    },
+
+    getShoppingItem: async(id: string, itemId: string) => {
+        try{
+            const itemRef = doc(db, 'shopping', `${id}`, 'list', `${itemId}`)
+            const itemSnapshot = await getDoc(itemRef)
+            
+            return {id: itemSnapshot.id, ...itemSnapshot.data() as IProduct}
+        }catch(err:any){
+            console.log(err)
+        }
     }
 }
 
 export default ShoppingServices
+
