@@ -5,6 +5,7 @@ import UserController from "../controllers/userController";
 import MarketController from "../controllers/marketController";
 import ListController from "../controllers/productController";
 import ShoppingController from "../controllers/shoppingController";
+import ItemController from "../controllers/itemController";
 
 const router = Router()
 
@@ -22,5 +23,9 @@ router.get('/shopping/:id', ShoppingController.getShopping)
 router.post('/shopping/:id/list', ShoppingController.createShoppingList)
 router.get('/shopping/:id/list', ShoppingController.getShoppingList)
 router.get('/shopping/:id/list/:itemId', ShoppingController.getShoppingItem)
+
+router.get('/items/:department', ItemController.getItems)
+router.get('/items/:id/:department', ItemController.getItem)
+
 
 export default router

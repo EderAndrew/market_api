@@ -1,4 +1,4 @@
-import { arrayUnion, collection, doc, getDoc, getDocs, increment, query, setDoc, updateDoc, where } from "firebase/firestore/lite"
+import { collection, doc, getDoc, getDocs, increment, query, setDoc, updateDoc, where } from "firebase/firestore/lite"
 import { db } from "../firebase/config"
 import { IShopping } from "../interfaces/shopping"
 import { IProduct } from "../interfaces/product"
